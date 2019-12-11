@@ -13,6 +13,7 @@ public class PlayAnimation : MonoBehaviour
 	Animator animator;
     Transform mytransform;
     Commands mycommands = null;
+    bool isPlayingShotAnimation = false;
 
     // Start is called before the first frame update
     void Start()
@@ -23,36 +24,38 @@ public class PlayAnimation : MonoBehaviour
 
     // Update is called once per frame
     void Update()
-    {
-        Debug.Log(animator.GetAnimatorTransitionInfo(0).duration);
-        if (animator.GetCurrentAnimatorStateInfo(0).length > animator.GetCurrentAnimatorStateInfo(0).normalizedTime && animator.GetCurrentAnimatorStateInfo(0).IsName("chip"))
-        {
-            // Avoid any reload.
-            Debug.Log("Here playing chip animation");
-        }
-        else
-        {
-            animator.SetBool("CHIP", false);
-        }
-        if (animator.GetCurrentAnimatorStateInfo(0).length > animator.GetCurrentAnimatorStateInfo(0).normalizedTime && animator.GetCurrentAnimatorStateInfo(0).IsName("drive"))
-        {
-            // Avoid any reload.
-            Debug.Log("Here playing drive animation");
-        }
-        else
-        {
-            animator.SetBool("DRIVE", false);
-        }
-        if (animator.GetCurrentAnimatorStateInfo(0).length > animator.GetCurrentAnimatorStateInfo(0).normalizedTime && animator.GetCurrentAnimatorStateInfo(0).IsName("putt"))
-        {
-            // Avoid any reload.
-            Debug.Log("Here playing putt animation");
-        }
-        else
-        {
-            animator.SetBool("PUTT", false);
-        }
-
+    {        
+        //if (animator.GetCurrentAnimatorStateInfo(0).IsName("chip"))
+        //{
+        //    // Avoid any reload.
+        //    Debug.Log("Here playing chip animation");
+        //}
+        //else if(isPlayingShotAnimation)
+        //{
+        //    isPlayingShotAnimation = false;
+        //    animator.SetBool("CHIP", false);
+        //}
+        //if (animator.GetCurrentAnimatorStateInfo(0).IsName("drive"))
+        //{
+        //    // Avoid any reload.
+        //    Debug.Log("Here playing drive animation");
+        //}
+        //else if (isPlayingShotAnimation)
+        //{
+        //    isPlayingShotAnimation = false;
+        //    animator.SetBool("DRIVE", false);
+        //}
+        //if (animator.GetCurrentAnimatorStateInfo(0).IsName("putt"))
+        //{
+        //    // Avoid any reload.
+        //    Debug.Log("Here playing putt animation");
+        //}        
+        // else if (isPlayingShotAnimation)
+        //{
+        //    isPlayingShotAnimation = false;
+        //    animator.SetBool("PUTT", false);
+        //}
+        //Debug.Log("isPlaying Shot: " + isPlayingShotAnimation);
     }
 
     public void handlePlayerActions(Commands commands)
@@ -107,10 +110,12 @@ public class PlayAnimation : MonoBehaviour
                 destination_x = destination_x -units;
                 break;
         }
-        transform.DOMove(new Vector3(destination_x, 0.1f, destination_z), units / 2).OnComplete(()=>
+        transform.DOMove(new Vector3(destination_x, 0.1f, destination_z), units / 2).SetEase(Ease.Linear).OnComplete(()=>
         {
             animator.SetBool("walking", false);
-            Invoke("playShotAnimation", 0.5f);
+            Debug.Log("Walking Animation Done");
+            playShotAnimation();
+
         }
         );
         //DOTween.To(() => transform.position, x => transform.position = x, new Vector3(destination_x, 0.1f, destination_z), 20);
@@ -129,9 +134,18 @@ public class PlayAnimation : MonoBehaviour
 
     public void playShotAnimation()
     {
-        Debug.Log("Play Shot Here");
+        Debug.Log("Play Shot Here " + mycommands.cmd2.Split(' ')[1]);
         animator.SetBool(mycommands.cmd2.Split(' ')[1], true);
+        isPlayingShotAnimation = true;
+        Invoke("endShot", 1f);
     }
 
+
+    private void endShot()
+    {
+        Debug.Log("End Shot Here");
+        isPlayingShotAnimation = false;
+        animator.SetBool(mycommands.cmd2.Split(' ')[1], false);
+    }
 
 }

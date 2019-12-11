@@ -601,14 +601,14 @@
     <Reference Include="UnityEngine.XRModule">
       <HintPath>/Applications/2019.2.14f1/Unity.app/Contents/Managed/UnityEngine/UnityEngine.XRModule.dll</HintPath>
     </Reference>
+    <Reference Include="DOTween">
+      <HintPath>/Users/avinvij/Desktop/hackathon playground/Assets/Demigiant/DOTween/DOTween.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json">
       <HintPath>/Users/avinvij/Desktop/hackathon playground/Assets/Lib/Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="Vuforia.UnityExtensions">
       <HintPath>/Users/avinvij/Desktop/hackathon playground/Library/PackageCache/com.ptc.vuforia.engine@8.5.9/Vuforia/Plugins/Managed/Runtime/Vuforia.UnityExtensions.dll</HintPath>
-    </Reference>
-    <Reference Include="DOTween">
-      <HintPath>/Users/avinvij/Desktop/hackathon playground/Assets/Demigiant/DOTween/DOTween.dll</HintPath>
     </Reference>
     <Reference Include="netstandard">
       <HintPath>/Applications/2019.2.14f1/Unity.app/Contents/NetStandard/ref/2.0.0/netstandard.dll</HintPath>
