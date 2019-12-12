@@ -138,7 +138,18 @@ public class PlayAnimation : MonoBehaviour
         Debug.Log("Play Shot Here " + mycommands.cmd2.Split(' ')[1]);
         animator.SetBool(mycommands.cmd2.Split(' ')[1], true);
         isPlayingShotAnimation = true;
-        Invoke("endShot", 1.2f);
+        if(mycommands.cmd2.Split(' ')[1] == "DRIVE")
+        {
+            Invoke("endShot", 1.5f);
+        }
+        else if (mycommands.cmd2.Split(' ')[1] == "CHIP")
+        {
+            Invoke("endShot", 1.8f);
+        }
+        else if (mycommands.cmd2.Split(' ')[1] == "PUTT")
+        {
+            Invoke("endShot", 2.0f);
+        }
     }
 
 
