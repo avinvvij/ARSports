@@ -64,7 +64,7 @@ public class PlayAnimation : MonoBehaviour
         mycommands = commands;
          if(int.Parse(commands.cmd1.Split(' ')[1]) > 0)
         {
-            rotatePlayer(commands.cmd1.Split(' ')[2]);
+            //rotatePlayer(commands.cmd1.Split(' ')[2]);
             movePlayer(int.Parse(commands.cmd1.Split(' ')[1]), commands.cmd1.Split(' ')[2]);
         }
     }
@@ -75,16 +75,16 @@ public class PlayAnimation : MonoBehaviour
         switch (direction)
         {
             case "North":
-                transform.rotation = Quaternion.Euler(new Vector3(0, 0, 0));
+                transform.localRotation = Quaternion.Euler(new Vector3(0, 0, 0));
                 break;
             case "South":
-                transform.rotation = Quaternion.Euler(new Vector3(0, 180, 0));                
+                transform.localRotation = Quaternion.Euler(new Vector3(0, 180, 0));                
                 break;
             case "East":
-                transform.rotation = Quaternion.Euler(new Vector3(0, 90, 0));                
+                transform.localRotation = Quaternion.Euler(new Vector3(0, 90, 0));                
                 break;
             case "West":
-                transform.rotation = Quaternion.Euler(new Vector3(0, 270, 0));             
+                transform.localRotation = Quaternion.Euler(new Vector3(0, 270, 0));             
                 break;
         }
         
@@ -111,7 +111,7 @@ public class PlayAnimation : MonoBehaviour
                 destination_x = destination_x -units;
                 break;
         }
-        transform.DOMove(new Vector3(destination_x, currentPosition.y, destination_z), units /20 ).SetEase(Ease.Linear).OnComplete(()=>
+        transform.DOMove(new Vector3(destination_x, currentPosition.y, destination_z), units /1 ).SetEase(Ease.Linear).OnComplete(()=>
         {
             animator.SetBool("walking", false);
             Debug.Log("Walking Animation Done");
