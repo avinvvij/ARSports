@@ -14,6 +14,7 @@ public class PlayAnimation : MonoBehaviour
     Transform mytransform;
     Commands mycommands = null;
     bool isPlayingShotAnimation = false;
+    public AnimateBall ballAnimation;
 
     // Start is called before the first frame update
     void Start()
@@ -93,8 +94,8 @@ public class PlayAnimation : MonoBehaviour
     {
         animator.SetBool("walking", true);
         Vector3 currentPosition = transform.position;
-        float destination_x = currentPosition.x;
-        float destination_z = currentPosition.z;
+        float destination_x = currentPosition.x ;
+        float destination_z = currentPosition.z ;
         switch (direction)
         {
             case "North":
@@ -110,7 +111,7 @@ public class PlayAnimation : MonoBehaviour
                 destination_x = destination_x -units;
                 break;
         }
-        transform.DOMove(new Vector3(destination_x, 0.1f, destination_z), units / 2).SetEase(Ease.Linear).OnComplete(()=>
+        transform.DOMove(new Vector3(destination_x, currentPosition.y, destination_z), units /20 ).SetEase(Ease.Linear).OnComplete(()=>
         {
             animator.SetBool("walking", false);
             Debug.Log("Walking Animation Done");
@@ -137,7 +138,7 @@ public class PlayAnimation : MonoBehaviour
         Debug.Log("Play Shot Here " + mycommands.cmd2.Split(' ')[1]);
         animator.SetBool(mycommands.cmd2.Split(' ')[1], true);
         isPlayingShotAnimation = true;
-        Invoke("endShot", 1f);
+        Invoke("endShot", 1.2f);
     }
 
 
@@ -146,6 +147,7 @@ public class PlayAnimation : MonoBehaviour
         Debug.Log("End Shot Here");
         isPlayingShotAnimation = false;
         animator.SetBool(mycommands.cmd2.Split(' ')[1], false);
+        ballAnimation.animateBall(mycommands.cmd3);
     }
 
 }
